@@ -16,6 +16,7 @@ The plugin must export object or function. Object should contain these:
 | enabled | Whether the plugin is enabled and should be used |
 | exec | Function to call when plugin is enabled and request matches rules |
 | rules | Object containing rules to be passed before calling exec. Can be function, in which case the context is passed and must return boolean (or Promise<boolean>). If empty, automatically evaluates to true.|
+| Native | If native is selected, plugin is registered directly to koa. This means, that the exec gets also function `next` and ignores rules & enabled properties |
 
 If the exported is function, it works as `multi-plugin`:
 

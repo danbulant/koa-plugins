@@ -21,6 +21,9 @@ module.exports = class Hooks {
             if(typeof e == "function"){
                 e(this);
             } else {
+                if(e.native){
+                    return app.use(e.exec);
+                }
                 if(!e.enabled || !e.exec)continue;
                 this._plugins.push(e);
             }
