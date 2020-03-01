@@ -1,25 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-try {
-    const chalk = require("chalk");
-    console = (function(oldCons){
-        return {
-            log: function(...text){
-                oldCons.log("[INFO]", ...text);
-            },
-            warn: function (...text) {
-                oldCons.warn(chalk.yellow("[WARN]", ...text));
-            },
-            error: function (...text) {
-                oldCons.error(chalk.red("[ERROR]", ...text));
-            }
-        };
-    }(console));
-} catch(e){
-
-}
-
 module.exports = (app)=>{
     var folders = fs.readdirSync(path.join(__dirname, "plugins"));
 

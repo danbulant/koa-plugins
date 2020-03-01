@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "koa": "./bin/koa.js"
+  },
   "keywords": [],
   "author": "Daniel Bulant",
   "repository": {
@@ -17,6 +20,7 @@
     "fastcgi-client": "0.0.1",
     "is-elevated": "^3.0.0",
     "koa": "^2.11.0",
-    "mime-types": "^2.1.26"
+    "mime-types": "^2.1.26",
+    "yargs": "^15.1.0"
   }
 }
