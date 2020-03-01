@@ -1,14 +1,19 @@
 const PHPFPM = require("./phpfpm");
 const path = require("path");
+const fs = require("fs");
 const phpfpm = new PHPFPM({
     sockFile: "/run/php/php7.3-fpm.sock",
     documentRoot: path.join(__dirname, "../../contents")
 });
 
+const useIndex = true;
+
 module.exports = {
     enabled: true,
     exec(ctx){
         return new Promise((resolve, reject)=>{
+            if(ctx.request.url.split("/")[ctx.request.url.split("/").length - 1] == "")ctx.request.url += "index.php";
+
             phpfpm.run({
                 hostname: ctx.hostname,
                 remote_addr: ctx.request.ip,
@@ -22,15 +27,22 @@ module.exports = {
                 
                 ctx.body = output;
                 
-                if (phpErrors) console.error(err, phpErrors);
+                if (phpErrors) console.error(phpErrors);
 
                 resolve();
             });
         })
     },
     rules(ctx){
+        var p = path.join(__dirname, "../../contents/", ctx.request.url);
+        if(ctx.request.url.split("/")[ctx.request.url.split("/").length - 1] == "" && useIndex)p = path.join(p, "index.php");
+        
+
+        if(!fs.existsSync(p))return false;
+
+        if(ctx.request.url.split("/")[ctx.request.url.split("/").length - 1] == "" && useIndex)return true;
+
         var ext = ctx.request.url.split('.').pop();
-        console.log("Filetype: " + ext);
         return ext == "php";
     },
     priority: -2,
