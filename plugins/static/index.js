@@ -5,6 +5,7 @@
 const fs = require("fs");
 const path = require("path")
 const PassThrough = require('stream').PassThrough;
+const mime = require('mime-types');
 
 const useIndex = true;
 
@@ -15,7 +16,7 @@ module.exports = {
         
         if(ctx.request.url.split("/")[ctx.request.url.split("/").length - 1] == "" && useIndex){
             p = path.join(p, "index.html");
-            
+
             if(!fs.existsSync(p)){
                 ctx.body = "Forbidden";
                 ctx.status = 403;
@@ -35,7 +36,7 @@ module.exports = {
             return;
         }
 
-        ctx.set('Content-Type', 'text/html');
+        ctx.set('Content-Type', mime.contentType(path.extname(p)));
         ctx.body = fs.createReadStream(p).on('error', (e)=>{ctx.onerror(e)}).pipe(PassThrough());
     },
     rules(ctx){
