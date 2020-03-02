@@ -6,7 +6,8 @@ const chalk = require("chalk");
 console = (function(oldCons){
     return {
         log: function(...text){
-            oldCons.log(...text);
+            if(argv.verbose)
+                oldCons.log(...text);
         },
         info: function(...text){
             oldCons.info("[INFO]", ...text);
