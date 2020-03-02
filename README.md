@@ -38,3 +38,14 @@ Following rules can be used
 | accepts | String or String[] | Using koa's accepts method. Used as arguments (array expanded) |
 | secure | bool | If using HTTPS |
 | subdomains | String[] | If subdomains matches. (compares koa's subdomains) |
+
+
+## Plugins
+
+*Did own plugin and published it publicly? Make an issue and I'll add it there!*
+
+| Name | Author | Description | Link |
+| ---- | ------ | ----------- | ---- |
+| **PHP** | Daniel Bulant | Run PHP files with PHP-FPM from './contents'. Works well with static.| |
+| **Static** | Daniel Bulant | Serves static files from './contents' | |
+| **Logger** | Daniel Bulant | Simple logging utility to log all requests | |
